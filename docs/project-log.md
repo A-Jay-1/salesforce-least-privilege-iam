@@ -167,21 +167,21 @@ Each group mapped to its corresponding Salesforce app role under Enterprise Appl
 
 ### Admin flow (Requester: Araba Forson, Approver: J.A — Global Admin)
 
-1. **Baseline check** — Before any assignment, Araba's My Access home page showed "No roles assigned," confirming no standing privilege. (`Screenshot\_\_301\_.png`)
-2. **Eligible assignment added** — Araba added as an eligible Member of `SG-SalesDirect-App-Admin` via PIM Assignments (not the regular Groups blade). (`Screenshot\_\_300\_.png`)
-3. **Requester view** — Araba's PIM "My roles" showed the eligible assignment with an Activate action available. (`Screenshot\_\_302\_.png`)
-4. **Activation request submitted** — Duration set to 1 hour (matching policy max), justification entered: *"I need access to the group to perform make changes with require admin access."* (`Screenshot\_\_303\_.png`, `Screenshot\_\_304\_.png` — Details tab confirming group name, role, member, start/end time before submission)
-5. **Pending approval** — System confirmed: "Your request is pending for approval." Demonstrates the approval gate is enforced — activation did not happen immediately, unlike the Auditor flow below. (`Screenshot\_\_305\_.png`)
-6. **Approver queue** — Jason, as designated approver, saw the pending request under "Requests for role activations," showing requestor (Araba Forson), request time, reason, and request type (`selfActivate`). (`Screenshot\_\_306\_.png`)
-7. **Email notification** — PIM automatically sent an email ("PIM: Review Araba Forson's request to activate the Member role") with full request details (user, resource, role, reason, start time) and a direct approve/deny action link. Confirms the notification policy configured in Step 7 is functioning. (`Screenshot\_\_307\_.png`)
-8. **Approval confirmed** — "Request(s) approved successfully" notification shown to approver. (`Screenshot\_\_308\_.png`)
-9. **Active, time-limited access confirmed** — Araba's "My roles" now showed the assignment under **Active assignments**, State: Activated, with a visible End time and a Deactivate action available. (`Screenshot\_\_309\_.png`)
+1. **Baseline check** — Before any assignment, Araba's My Access home page showed "No roles assigned," confirming no standing privilege. 
+2. **Eligible assignment added** — Araba added as an eligible Member of `SG-SalesDirect-App-Admin` via PIM Assignments (not the regular Groups blade). 
+3. **Requester view** — Araba's PIM "My roles" showed the eligible assignment with an Activate action available. 
+4. **Activation request submitted** — Duration set to 1 hour (matching policy max), justification entered: *"I need access to the group to perform make changes with require admin access." (Details tab confirming group name, role, member, start/end time before submission)
+5. **Pending approval** — System confirmed: "Your request is pending for approval." Demonstrates the approval gate is enforced — activation did not happen immediately, unlike the Auditor flow below. 
+6. **Approver queue** — Jason, as designated approver, saw the pending request under "Requests for role activations," showing requestor (Araba Forson), request time, reason, and request type (`selfActivate`). 
+7. **Email notification** — PIM automatically sent an email ("PIM: Review Araba Forson's request to activate the Member role") with full request details (user, resource, role, reason, start time) and a direct approve/deny action link. Confirms the notification policy configured in Step 7 is functioning. 
+8. **Approval confirmed** — "Request(s) approved successfully" notification shown to approver. 
+9. **Active, time-limited access confirmed** — Araba's "My roles" now showed the assignment under **Active assignments**, State: Activated, with a visible End time and a Deactivate action available. 
 
 ### Auditor flow (Requester: Kwame Baidoo, same Approver)
 
-1. **Eligible assignment** — Kwame added as eligible Member of `SG-SalesDirect-App-Auditor`. Requester view showed Activate action available. (`Screenshot\_\_312\_.png`)
-2. **Activation request submitted** — Duration set to 8 hours (matching policy max), justification entered: *"Request to audit PIM logs."* (`Screenshot\_\_313\_.png`)
-3. **Immediate activation — no approval step** — Unlike the Admin flow, this request did not enter a pending-approval state. Kwame's "My roles" moved straight to **Active assignments**, State: Activated, confirming the policy decision from Step 7 (no approval required for Auditor) behaves correctly in practice. (`Screenshot\_\_315\_.png`)
+1. **Eligible assignment** — Kwame added as eligible Member of `SG-SalesDirect-App-Auditor`. Requester view showed Activate action available. 
+2. **Activation request submitted** — Duration set to 8 hours (matching policy max), justification entered: *"Request to audit PIM logs."* 
+3. **Immediate activation — no approval step** — Unlike the Admin flow, this request did not enter a pending-approval state. Kwame's "My roles" moved straight to **Active assignments**, State: Activated, confirming the policy decision from Step 7 (no approval required for Auditor) behaves correctly in practice. 
 
 **Key comparative evidence for README:** Running both flows side by side produced a clean, demonstrable contrast — the Admin request visibly stalled at "pending approval" and required a second person's action to proceed, while the Auditor request activated immediately after justification alone. This is direct proof (not just configuration screenshots) that the two risk-differentiated policies from Step 7 actually behave differently at runtime.
 
@@ -194,7 +194,7 @@ Each group mapped to its corresponding Salesforce app role under Enterprise Appl
 **Finding — PIM activation does not itself generate an application sign-in event:** Activating a PIM-eligible group membership changes the user's group membership immediately, but does not trigger a sign-in to the target application. The role claim only reaches Salesforce on the user's *next* actual sign-in/SSO attempt to that app. This is an important distinction between "access granted" (group membership) and "access exercised" (application sign-in with role claim).
 
 **SSO launch test — both flows:**
-After activating each role, the respective test user (Araba Forson for Admin, Kwame Baidoo for Auditor) navigated to **My Apps** and clicked the Salesforce tile to trigger an SSO sign-in attempt. (`Screenshot\_\_319\_.png` — My Apps dashboard showing the Salesforce tile; `Screenshot\_\_320\_.png` — resulting error)
+After activating each role, the respective test user (Araba Forson for Admin, Kwame Baidoo for Auditor) navigated to **My Apps** and clicked the Salesforce tile to trigger an SSO sign-in attempt.
 
 **Result:** Both attempts failed with the same error — *"App with ID d67da9f2-c33b-4287-b81a-... is not configured for single sign-on"* — routed correctly through `launcher.myapps.microsoft.com` with the correct app ID and tenant ID.
 
@@ -202,7 +202,7 @@ After activating each role, the respective test user (Araba Forson for Admin, Kw
 
 **Documentation note for README:** "SSO launch was attempted from My Apps for both the Admin and Auditor test flows to confirm PIM-activated group membership correctly resolved to app access eligibility. The launch failed at the SSO certificate/configuration step, since no live Salesforce org was connected for this lab — expected, given the project scope was Entra-side IAM design rather than full SSO federation. The app ID and tenant routing in the failure message confirm the request correctly reached the Salesforce Enterprise App registration."
 
-**PIM audit history captured:** `Screenshot\_\_321\_.png` — Privileged Identity Management → My audit history → Groups, filtered to last week, showing the complete governance timeline in one view: eligible member additions/removals for both Admin and Auditor groups, activation-related role assignment events, and their approval status. This single screenshot is a strong closing exhibit for the README, since it demonstrates the full audit trail Entra maintains automatically — every action tied to a timestamp, an actor (Requestor), and a target (Subject), with success/failure status.
+**PIM audit history captured:** - Privileged Identity Management → My audit history → Groups, filtered to last week, showing the complete governance timeline in one view: eligible member additions/removals for both Admin and Auditor groups, activation-related role assignment events, and their approval status. This single screenshot is a strong closing exhibit for the README, since it demonstrates the full audit trail Entra maintains automatically — every action tied to a timestamp, an actor (Requestor), and a target (Subject), with success/failure status.
 
 **Note — one failed action visible in the log (`7/1/2026, 2:37:46 PM — Process role removal reque... — Kwame Baidoo — ❌`):** left as-is and worth mentioning honestly in the README rather than omitted. It reflects normal PIM administration (e.g. attempting to remove a role assignment in a state that didn't permit it) rather than a flaw in the access model itself — real audit logs contain non-fatal errors like this, and showing it unedited is more credible than a curated all-green log.
 
