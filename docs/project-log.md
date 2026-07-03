@@ -165,7 +165,7 @@ Each group mapped to its corresponding Salesforce app role under Enterprise Appl
 
 **Result:** Both flows completed successfully, with full evidence captured at each stage.
 
-### Admin flow (Requester: Araba Forson, Approver: Jason Ampofo — Global Admin)
+### Admin flow (Requester: Araba Forson, Approver: J.A — Global Admin)
 
 1. **Baseline check** — Before any assignment, Araba's My Access home page showed "No roles assigned," confirming no standing privilege. (`Screenshot\_\_301\_.png`)
 2. **Eligible assignment added** — Araba added as an eligible Member of `SG-SalesDirect-App-Admin` via PIM Assignments (not the regular Groups blade). (`Screenshot\_\_300\_.png`)
