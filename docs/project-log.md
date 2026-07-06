@@ -22,7 +22,7 @@ Existing groups (`SG-Creative-Studio`, `SG-Devops`, `SG-Eng-All`, `SG-Marketing`
 |Salesforce Admin|Full config, user management, data export|PIM-eligible only|
 |Compliance Auditor|Read-only access to activity logs/audit trail|PIM-eligible, scoped|
 
-\
+
 
 ## Step 2: Enterprise Application Added
 
@@ -60,7 +60,7 @@ The pre-built app roles had no `value` set in the manifest. The Value field is w
 
 **Note for later:** A full production implementation would also involve SCIM-based provisioning to map these roles to actual Salesforce Profiles/Permission Sets — not configured in this project since it requires a live Salesforce org with API access. Documented as a known scope boundary, not an oversight.
 
-\
+
 
 ## Step 4: Security Groups Created
 
@@ -74,7 +74,6 @@ Three new Assigned-type security groups created (distinct from the tenant's exis
 
 
 
-\
 
 ## Step 5: Groups Assigned to App Roles
 
@@ -88,7 +87,7 @@ Each group mapped to its corresponding Salesforce app role under Enterprise Appl
 
 **Why this step matters:** This is the link between the internal group structure and the actual token claim. Without this explicit mapping, group membership has no effect on what Salesforce grants at sign-in — the group is just an internal container until this assignment tells Entra what role claim to issue for its members.
 
-\
+
 
 ## Step 6: Groups Onboarded to PIM
 
@@ -98,7 +97,7 @@ Each group mapped to its corresponding Salesforce app role under Enterprise Appl
 
 **Note:** Groups were onboarded while empty. Onboarding governs the group's membership *model* (eligible/active), not its current members — membership is added afterward through PIM itself, once policy is set, so the policy is already in force before anyone is added.
 
-\
+
 
 ## Step 7: PIM Activation Policies
 
@@ -137,7 +136,7 @@ Each group mapped to its corresponding Salesforce app role under Enterprise Appl
 
 
 
-\
+
 
 ## Step 8: Test Users, Licensing \& PIM Assignment
 
@@ -185,7 +184,7 @@ Each group mapped to its corresponding Salesforce app role under Enterprise Appl
 
 **Key comparative evidence for README:** Running both flows side by side produced a clean, demonstrable contrast — the Admin request visibly stalled at "pending approval" and required a second person's action to proceed, while the Auditor request activated immediately after justification alone. This is direct proof (not just configuration screenshots) that the two risk-differentiated policies from Step 7 actually behave differently at runtime.
 
-\
+
 
 ## Step 9: Audit Trail \& SSO Launch Verification
 
@@ -206,7 +205,7 @@ After activating each role, the respective test user (Araba Forson for Admin, Kw
 
 **Note — one failed action visible in the log (`7/1/2026, 2:37:46 PM — Process role removal reque... — Kwame Baidoo — ❌`):** left as-is and worth mentioning honestly in the README rather than omitted. It reflects normal PIM administration (e.g. attempting to remove a role assignment in a state that didn't permit it) rather than a flaw in the access model itself — real audit logs contain non-fatal errors like this, and showing it unedited is more credible than a curated all-green log.
 
-\
+
 
 ## 
 
